@@ -27,13 +27,13 @@ contract Administer is AccessControl {
 
     /// @dev Restricted to the chairman role.
     modifier onlyChairman() {
-        require(isPrincipal(msg.sender), "Restricted to the chairman.");
+        require(isChairman(msg.sender), "Restricted to the chairman.");
         _;
     }
     /// @dev Restricted to the BOD role.
     modifier onlyBoardOfDirectors() {
         require(
-            isPrincipal(msg.sender),
+            isBoardOfDirector(msg.sender),
             "Restricted to the Board of Directors."
         );
         _;
