@@ -33,7 +33,7 @@ contract Administer is AccessControl {
     /// @dev Restricted to the BOD role.
     modifier onlyBoardOfDirectors() {
         require(
-            isPrincipal(msg.sender),
+            isBoardOfDirector(msg.sender),
             "Restricted to the Board of Directors."
         );
         _;
