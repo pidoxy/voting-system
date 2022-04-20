@@ -29,6 +29,24 @@ async function main() {
   saveFrontendFiles(token);
 }
 
+const Voting = await ethers.getContractFactory("Voting");
+  const voting = await Voting.deploy();
+  await voting.deployed();
+
+  console.log("Voting address:", voting.address);
+
+  const School = await ethers.getContractFactory("SchoolAccessControl");
+  const school = await School.deploy();
+  await school.deployed();
+
+  console.log("School address:", school.address);
+
+  const Token = await ethers.getContractFactory("Token");
+  const token = await Token.deploy();
+  await token.deployed();
+
+  console.log("Token address:", token.address);
+
 function saveFrontendFiles(token) {
   const fs = require("fs");
   const contractsDir = __dirname + "/../frontend/src/contracts";
