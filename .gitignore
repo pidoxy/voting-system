@@ -6,3 +6,7 @@ cache
 artifacts
 
 /contracts/AccessControl.sol
+
+#  Lock files
+yarn.lock
+package-lock.json
