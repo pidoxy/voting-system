@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
  * @author Pidoxy Emmanuel Idoko
  * @notice Implements Principal, Teachers and User roles.
  */
-contract Administer is AccessControl {
+contract SchoolAccessControl is AccessControl {
     bytes32 public constant CHAIRMAN_BOD_ROLE = keccak256("CHAIRMAN_BOD");
     bytes32 public constant BOD_MEMBER_ROLE = keccak256("BOD_MEMBER");
     bytes32 public constant PRINCIPAL_ROLE = keccak256("PRINCIPAL");
@@ -19,7 +19,7 @@ contract Administer is AccessControl {
     bytes32 public constant STUDENT_ROLE = keccak256("STUDENT");
 
     /// @dev Add `principal and chairman` to the admin role as a member.
-    constructor(address chairman, address principal) public {
+    constructor(address chairman, address principal){
         // grant the chairman and principal roles as passed in to the constructor
         _setupRole(CHAIRMAN_BOD_ROLE, chairman);
         _setupRole(PRINCIPAL_ROLE, principal);

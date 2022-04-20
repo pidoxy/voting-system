@@ -11,7 +11,8 @@ contract Voting{
 
     struct poll{
         candidate[] candidates;
-        candidate winner;
+        // candidate winner;
+        mapping(address=>address) votes;
         bool done;
         uint created;
         uint deadline;
@@ -26,7 +27,7 @@ contract Voting{
 
     }
 
-    function vote(uint poll_id) public{
+    function vote(uint poll_id) private{
     
     }
     

@@ -12,40 +12,34 @@ async function main() {
 
   // ethers is available in the global scope
   const [deployer] = await ethers.getSigners();
+  const chairMan = await deployer.getAddress()
   console.log(
     "Deploying the contracts with the account:",
-    await deployer.getAddress()
+    chairMan
   );
+  // console.log(deployer)
 
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-  const Token = await ethers.getContractFactory("Token");
-  const token = await Token.deploy();
-  await token.deployed();
-
-  console.log("Token address:", token.address);
-
-  // We also save the contract's artifacts and address in the frontend directory
-  saveFrontendFiles(token);
-}
-
-const Voting = await ethers.getContractFactory("Voting");
+  const Voting = await ethers.getContractFactory("Voting");
   const voting = await Voting.deploy();
   await voting.deployed();
 
   console.log("Voting address:", voting.address);
 
   const School = await ethers.getContractFactory("SchoolAccessControl");
-  const school = await School.deploy();
+  const school = await School.deploy(chairMan, chairMan);
   await school.deployed();
 
   console.log("School address:", school.address);
 
-  const Token = await ethers.getContractFactory("Token");
-  const token = await Token.deploy();
-  await token.deployed();
+  // We also save the contract's artifacts and address in the frontend directory
+  // saveFrontendFiles(token);
+}
 
-  console.log("Token address:", token.address);
+
+
+  
 
 function saveFrontendFiles(token) {
   const fs = require("fs");
