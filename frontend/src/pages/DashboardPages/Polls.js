@@ -5,9 +5,12 @@ const Polls = (props) => {
     { name: "Vice Principal Academics" },
   ];
 
+  const poll = {number: 14};
+
   const navigation = [
-    { name: "All Polls", href: "/", current: true },
-    { name: "My Polls", href: "/dashboard/create-poll", current: false },
+    { name: "All Polls", href: "/dashboard/polls", current: true },
+    { name: "My Polls", href: "/dashboard/polls", current: false },
+    { name: "Ongoin Poll", href: `/dashboard/poll/${poll.number}`, current: false },
 
   ];
 
