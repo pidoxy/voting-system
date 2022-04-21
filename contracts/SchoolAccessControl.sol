@@ -113,8 +113,12 @@ contract SchoolAccessControl is AccessControl {
         revokeRole(PRINCIPAL_ROLE, account);
     }
     /// @dev Add an account to the teacher role. Restricted to principal.
-    function addTeacher(address account) public virtual onlyPrincipal {
-        grantRole(TEACHER_ROLE, account);
+    function addTeacher(address[] memory accounts) public virtual onlyPrincipal {
+        for(uint i=0; i<accounts.length; i++){
+            address account = accounts[i];
+            grantRole(TEACHER_ROLE, account);
+        }
+        
     }
 
     /// @dev Remove an account from the student role. Restricted to principal.
