@@ -10,13 +10,14 @@ import { useEffect } from "react";
 
 function App() {
   // Destructured Ethereum window object
-  const { ethereum, web3 } = window;
+  const { ethereum } = window;
 
   // Account Details
   const [currentAccount, setCurrentAccount] = useState("");
   const [chainId, setChainId] = useState("");
   const [networkId, setNetworkId] = useState("");
   const [contract, setContract] = useState("");
+  const [admin, setAdmin] = useState("");
 
   const currentUrl = new URL(window.location.href);
   const forwarderOrigin =
@@ -53,9 +54,43 @@ function App() {
         setNetworkId(network);
       }
     }
+
+    // check role of user that logged in
+    const checkRole = async () => {
+      // Now you can call functions of the contract
+      try {
+        // loading alert to show transaction is being sent
+        console.log("Loading...");
+        // setAdmin(await contract.hasRole(ethers.utils.formatBytes32String("CHAIRMAN_BOD"), currentAccount))
+        console.log(admin); // tx.wait();
+
+        // alert success message
+        console.log("Transaction Successful!");
+      } catch (err) {
+        console.log(err);
+      }
+      currentAccount === "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ? setAdmin(true)
+        : setAdmin(false);
+      console.log(
+        currentAccount === "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+          ? `${true}...`
+          : `${false}...`
+      );
+    };
+
+    checkRole();
   })();
 
-  const callFunc = () => {
+  // disconnect wallet function
+  const disconnectWallet = async () => {
+    await window.ethereum.request({
+      method: "eth_requestAccounts",
+      params: [{eth_accounts: {}}]
+  })
+  }
+
+  const loadData = () => {
     try {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
@@ -73,25 +108,8 @@ function App() {
     }
   };
 
-  // check role of user that logged in
-  const checkRole = async (currentAccount) => {
-    try {
-      // loading alert to show transaction is being sent
-      console.log("Loading...");
-      const tx = await contract;
-      tx.addRole()
-      tx.wait();
-
-      // alert success message
-      console.log("Transaction Successful!");
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
-    callFunc();
-    checkRole();
+    loadData();
   }, []);
 
   return (
@@ -117,6 +135,14 @@ function App() {
                 ethers={ethers}
                 contract={contract}
                 currentAccount={currentAccount}
+                disconnectWallet={disconnectWallet}
+                admin={
+                  currentAccount ===
+                  "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                    ? true
+                    : false
+                }
+                // admin={admin}
               />
             }
           />

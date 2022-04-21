@@ -5,9 +5,16 @@ import { FaWallet } from "react-icons/fa";
 import { Route, Routes } from "react-router-dom";
 import Polls from "./DashboardPages/Polls";
 import CreatePolls from "./DashboardPages/CreatePolls";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Dashboard = (props) => {
-  const { currentAccount, contract } = props;
+  const { currentAccount, contract, admin, disconnectWallet } = props;
+  const [navigation, setNavigation] = useState([
+    { name: "Dashboard", href: "/", current: true },
+    { name: "Create A Poll", href: "/dashboard/create-poll", current: false },
+    { name: "Polls", href: "/dashboard/polls", current: false },
+  ]);
 
   const user = {
     name: "Tom Cook",
@@ -15,11 +22,25 @@ const Dashboard = (props) => {
     imageUrl:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
   };
-  const navigation = [
-    { name: "Dashboard", href: "/", current: true },
-    { name: "Create A Poll", href: "/dashboard/create-poll", current: false },
-    { name: "Polls", href: "/dashboard/polls", current: false },
-  ];
+
+  useEffect(() => {
+    !admin
+      ? setNavigation([
+          { name: "Dashboard", href: "/", current: true },
+          { name: "Polls", href: "/dashboard/polls", current: false },
+        ])
+      : setNavigation([
+          { name: "Dashboard", href: "/", current: true },
+          {
+            name: "Create A Poll",
+            href: "/dashboard/create-poll",
+            current: false,
+          },
+          { name: "Polls", href: "/dashboard/polls", current: false },
+        ]);
+    
+  }, [admin]);
+
   const userNavigation = [
     { name: "Your Profile", href: "#" },
     { name: "Settings", href: "#" },
@@ -80,10 +101,13 @@ const Dashboard = (props) => {
                       <div className="hidden md:flex self-center  md:ml-10 md:pr-4 md:space-x-8">
                         <button className="font-medium outline-none text-gray-500 hover:text-gray-900 flex">
                           <FaWallet className="h-6 w-6 mr-2" />
-                          {`${currentAccount.slice(0,4)}... ${currentAccount.slice(-4)}`}
+                          {`${currentAccount.slice(
+                            0,
+                            4
+                          )}... ${currentAccount.slice(-4)}`}
                           {/* {console.log(currentAccount)} */}
                         </button>
-                        <button className="font-medium outline-none text-indigo-500 hover:text-gray-900 flex">
+                        <button onClick={disconnectWallet} className="font-medium outline-none text-indigo-500 hover:text-gray-900 flex">
                           Disconnect
                         </button>
                       </div>

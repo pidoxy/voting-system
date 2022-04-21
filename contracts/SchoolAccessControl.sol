@@ -12,17 +12,17 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
  * @notice Implements Principal, Teachers and User roles.
  */
 contract SchoolAccessControl is AccessControl {
-    bytes32 public constant CHAIRMAN_BOD_ROLE = keccak256("CHAIRMAN_BOD");
-    bytes32 public constant BOD_MEMBER_ROLE = keccak256("BOD_MEMBER");
-    bytes32 public constant PRINCIPAL_ROLE = keccak256("PRINCIPAL");
-    bytes32 public constant TEACHER_ROLE = keccak256("TEACHER");
-    bytes32 public constant STUDENT_ROLE = keccak256("STUDENT");
+    bytes32 public constant CHAIRMAN_BOD = keccak256("CHAIRMAN_BOD");
+    bytes32 public constant BOD_MEMBER = keccak256("BOD_MEMBER");
+    bytes32 public constant PRINCIPAL = keccak256("PRINCIPAL");
+    bytes32 public constant TEACHER = keccak256("TEACHER");
+    bytes32 public constant STUDENT = keccak256("STUDENT");
 
     /// @dev Add `principal and chairman` to the admin role as a member.
     constructor(address chairman, address principal){
         // grant the chairman and principal roles as passed in to the constructor
-        _setupRole(CHAIRMAN_BOD_ROLE, chairman);
-        _setupRole(PRINCIPAL_ROLE, principal);
+        _setupRole(CHAIRMAN_BOD, chairman);
+        _setupRole(PRINCIPAL, principal);
     }
 
     /// @dev Restricted to the chairman role.
@@ -64,27 +64,27 @@ contract SchoolAccessControl is AccessControl {
 
     /// @dev Return `true` if the account belongs to the chairman role.
     function isChairman(address account) public view virtual returns (bool) {
-        return hasRole(CHAIRMAN_BOD_ROLE, account);
+        return hasRole(CHAIRMAN_BOD, account);
     }
 
     /// @dev Return `true` if the account belongs to the Board of Directors role.
     function isBoardOfDirector(address account) public view virtual returns (bool) {
-        return hasRole(BOD_MEMBER_ROLE, account);
+        return hasRole(BOD_MEMBER, account);
     }
 
     /// @dev Return `true` if the account belongs to the principal role.
     function isPrincipal(address account) public view virtual returns (bool) {
-        return hasRole(PRINCIPAL_ROLE, account);
+        return hasRole(PRINCIPAL, account);
     }
 
     /// @dev Return `true` if the account belongs to the teacher role.
     function isTeacher(address account) public view virtual returns (bool) {
-        return hasRole(TEACHER_ROLE, account);
+        return hasRole(TEACHER, account);
     }
 
     /// @dev Return `true` if the account belongs to the student role.
     function isStudent(address account) public view virtual returns (bool) {
-        return hasRole(STUDENT_ROLE, account);
+        return hasRole(STUDENT, account);
     }
 
     /// @dev Add an account to the teacher role. Restricted to chairman.
@@ -93,7 +93,7 @@ contract SchoolAccessControl is AccessControl {
         virtual
         onlyChairman
     {
-        grantRole(BOD_MEMBER_ROLE, account);
+        grantRole(BOD_MEMBER, account);
     }
 
     /// @dev Remove an account from the student role. Restricted to chairman.
@@ -102,7 +102,7 @@ contract SchoolAccessControl is AccessControl {
         virtual
         onlyChairman
     {
-        revokeRole(BOD_MEMBER_ROLE, account);
+        revokeRole(BOD_MEMBER, account);
     }
 /// @dev Remove principal. Restricted to chairman.
     function removePrincipal(address account)
@@ -110,27 +110,27 @@ contract SchoolAccessControl is AccessControl {
         virtual
         onlyChairman
     {
-        revokeRole(PRINCIPAL_ROLE, account);
+        revokeRole(PRINCIPAL, account);
     }
     /// @dev Add an account to the teacher role. Restricted to principal.
     function addTeacher(address[] memory accounts) public virtual onlyPrincipal {
         for(uint i=0; i<accounts.length; i++){
             address account = accounts[i];
-            grantRole(TEACHER_ROLE, account);
+            grantRole(TEACHER, account);
         }
         
     }
 
     /// @dev Remove an account from the student role. Restricted to principal.
     function removeTeacher(address account) public virtual onlyPrincipal {
-        revokeRole(TEACHER_ROLE, account);
+        revokeRole(TEACHER, account);
     }
 
     /// @dev Add an account to the user role. Restricted to teachers and principal.
     function addStudent(address[] memory accounts) public virtual onlyPrincipalOrTeacher {
         for(uint i=0; i<accounts.length; i++){
             address account = accounts[i];
-            grantRole(STUDENT_ROLE, account);
+            grantRole(STUDENT, account);
         }
     }
 
@@ -140,7 +140,7 @@ contract SchoolAccessControl is AccessControl {
         virtual
         onlyPrincipalOrTeacher
     {
-        revokeRole(STUDENT_ROLE, account);
+        revokeRole(STUDENT, account);
     }
 
     event AdminRoleSet(bytes32 roleId, bytes32 adminRoleId);
@@ -163,7 +163,7 @@ contract SchoolAccessControl is AccessControl {
 
     /// @dev Remove oneself from the chairman role.
     function renounceChairman() public virtual {
-        renounceRole(CHAIRMAN_BOD_ROLE, msg.sender);
+        renounceRole(CHAIRMAN_BOD, msg.sender);
     }
     // struct Vote{
     //     address voter;
