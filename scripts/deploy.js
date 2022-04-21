@@ -1,17 +1,10 @@
 // This is a script for deploying your contracts. You can adapt it to deploy
 // yours, or create new ones.
 async function main() {
-  // This is just a convenience check
-  if (network.name === "hardhat") {
-    console.warn(
-      "You are trying to deploy a contract to the Hardhat Network, which" +
-        "gets automatically created and destroyed every time. Use the Hardhat" +
-        " option '--network localhost'"
-    );
-  }
 
   // ethers is available in the global scope
   const [deployer] = await ethers.getSigners();
+  // const chairMan = await deployer.getAddress()
   const chairMan = await deployer.getAddress()
   console.log(
     "Deploying the contracts with the account:",
@@ -23,13 +16,13 @@ async function main() {
 
   const Voting = await ethers.getContractFactory("Voting");
   const voting = await Voting.deploy();
-  await voting.deployed();
+  // await voting.deployed();
 
   console.log("Voting address:", voting.address);
 
   const School = await ethers.getContractFactory("SchoolAccessControl");
   const school = await School.deploy(chairMan, chairMan);
-  await school.deployed();
+  // await school.deployed();
 
   console.log("School address:", school.address);
 

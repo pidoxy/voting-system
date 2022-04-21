@@ -7,8 +7,7 @@ import Polls from "./DashboardPages/Polls";
 import CreatePolls from "./DashboardPages/CreatePolls";
 
 const Dashboard = (props) => {
-  const { currentAccount } = props;
-  console.log(currentAccount)
+  const { currentAccount, contract } = props;
 
   const user = {
     name: "Tom Cook",

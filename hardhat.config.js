@@ -9,6 +9,9 @@ require("./tasks/faucet");
 module.exports = {
   solidity: "0.8.0",
   networks: {
+    rinkeby: {
+      url: "https://rinkeby.infura.io/v3/05024edc8c5d4dd68a293d22f4eda2bc",
+  },
     localhost: {
       url: "http://127.0.0.1:8545"
     },
