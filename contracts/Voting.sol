@@ -14,7 +14,7 @@ contract Voting{
         address[] candidates;
         address[] voters;
         // candidate winner;
-        mapping(uint=>Vote) votes;
+        mapping(address=>address) votes;
         bool done;
         uint created;
         uint deadline;
@@ -23,11 +23,10 @@ contract Voting{
     }
 
     Poll[] polls;
-     mapping(uint=>Vote) generic_votes;
-    //  ask about creating empty mappings for use
-    function createPoll(address[] memory candidates, address[] memory voters, uint deadline) public {
 
-        Poll memory poll = (candidates, voters, generic_votes, false, block.timestamp, deadline, polls.length, 0);
+    function createPoll(address[] memory candidates, address[] memory voters, uint deadline) public {
+        mapping(uint=>Vote) memory votes;
+        Poll memory poll = (candidates, voters, votes, false, now, deadline, polls.length, 0);
         polls.push(poll);
 
     }
