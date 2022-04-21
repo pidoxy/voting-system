@@ -1,16 +1,16 @@
 require("@nomiclabs/hardhat-waffle");
-
-// The next line is part of the sample project, you don't need it in your
-// project. It imports a Hardhat task definition, that can be used for
-// testing the frontend.
-require("./tasks/faucet");
+require("@openzeppelin/hardhat-upgrades");
 
 // If you are using MetaMask, be sure to change the chainId to 1337
 module.exports = {
   solidity: "0.8.0",
+  defaultNetwork: "rinkeby",
   networks: {
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/05024edc8c5d4dd68a293d22f4eda2bc",
+      accounts: [
+        "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+    ],
   },
     localhost: {
       url: "http://127.0.0.1:8545"

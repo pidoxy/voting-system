@@ -5,7 +5,7 @@ for your Ethereum project. It's also a great fit for learning the basics of
 smart contract development.
 
 This project is intended to be used with the
-[Hardhat Beginners Tutorial](https://hardhat.org/tutorial), but you should be
+[SchoolAccessControl Contract](https://hardhat.org/tutorial), but you should be
 able to follow it by yourself by reading the README and exploring its
 `contracts`, `tests`, `scripts` and `frontend` directories.
 
