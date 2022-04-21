@@ -57,8 +57,6 @@ const Polls = (props) => {
                 <th className="border-2">Poll Status</th>
               </tr>
             </thead>
-            
-         
           {polls.map((poll) => {
             <tbody className="border-4">
               <tr>
