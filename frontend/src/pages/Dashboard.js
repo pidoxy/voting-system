@@ -205,7 +205,7 @@ const Dashboard = (props) => {
           />
           <Route path="/polls" element={<Polls />} />
           <Route path="/poll/:poll" element={<OngoingPolls />} />
-          <Route path="/create-poll" element={<CreatePolls />} />
+          <Route path="/create-poll" element={<CreatePolls admin={admin} />} />
         </Routes>
       </div>
     </>
