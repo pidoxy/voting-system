@@ -6,7 +6,7 @@ pragma solidity ^0.8.0;
 contract Voting{
     struct candidate{
         address canditate;
-        address[] votes; 
+        // address[] votes; 
     }
 
     struct poll{
@@ -23,7 +23,7 @@ contract Voting{
     poll[] polls;
 
     function createPoll(address[] memory candidates, uint deadline) public {
-
+        
 
     }
 
