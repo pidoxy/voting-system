@@ -61,9 +61,10 @@ const Polls = (props) => {
           {polls.map((poll) => {
             <tbody className="border-4">
               <tr>
-                <td className="border-2"></td>
-                <td className="border-2">  </td>
-                <td className="border-2"></td>
+                <td className="border-2">{ poll.name }</td>
+                <td className="border-2">{poll.category } </td>
+                <td className="border-2">{ poll.date }</td>
+                <td className="border-2">{ poll.createdBy }</td>
               </tr>
             </tbody>
           } ) }
