@@ -14,19 +14,23 @@ contract Voting{
         address[] candidates;
         address[] voters;
         // candidate winner;
-        mapping(address=>address) votes;
+        Vote[] votes;
         bool done;
         uint created;
         uint deadline;
         uint poll_id;
-        uint number_of_voters;
     }
-
+mapping(address=>mapping(uint=>address)) voters;
+// voter to mapping of poll_id to candidate voted for. Like a tree
     Poll[] polls;
 
-    function createPoll(address[] memory candidates, address[] memory voters, uint deadline) public {
-        mapping(uint=>Vote) memory votes;
-        Poll memory poll = (candidates, voters, votes, false, now, deadline, polls.length, 0);
+    function createPoll(address[] memory candidates, uint deadline) public {
+        Poll memory poll;
+        poll.candidates=candidates;
+        poll.done=false;
+        poll.created=block.timestamp;
+        poll.deadline=deadline;
+        poll.poll_id=polls.length;
         polls.push(poll);
 
     }
@@ -36,11 +40,14 @@ contract Voting{
         // check that time hasn't passed dedline
         // check that parameter candidate is in candiate list
         // Increment number of voters for poll
-        Vote memory _vote = (msg.sender, candidate);
-        Poll memory poll = polls[poll_id];
-        poll.votes[poll.number_of_voters] = _vote;
-        poll.number_of_voters+=1;
-        polls[poll_id] = poll;
+        Poll storage poll = polls[poll_id];
+        // Vote storage _vote = poll.votes[poll.votes.length];
+        poll.votes.push(Vote(candidate, msg.sender));
+        //  _vote.candidate=candidate;
+        // _vote.voter = msg.sender;
+        // uint vote_index = poll.votes.length;
+        // poll.votes[] = _vote;
+        voters[msg.sender][poll_id] = candidate;
     
     }
 
