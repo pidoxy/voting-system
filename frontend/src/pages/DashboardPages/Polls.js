@@ -46,10 +46,33 @@ const Polls = (props) => {
 
       <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          {/* Replace with your content */}
+
+          {/* Replace with your content */ }
+          <table className="border-collapse md:table-fixed w-full">
+            <thead className="border-4">
+              <tr>
+                <th className="border-2">Poll Name</th>
+                <th className="border-2">Poll Category</th>
+                <th className="border-2">Poll Date</th>
+                <th className="border-2"> Created by </th>
+                <th className="border-2">Poll Status</th>
+              </tr>
+            </thead>
+            
+         
           {polls.map((poll) => {
-            <></>;
-          })}
+            <tbody className="border-4">
+              <tr>
+                <td className="border-2"></td>
+                <td className="border-2">  </td>
+                <td className="border-2"></td>
+              </tr>
+            </tbody>
+          } ) }
+          </table>
+
+  
+
         </div>
       </main>
     </>
